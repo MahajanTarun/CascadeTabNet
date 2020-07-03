@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from google.colab.patches import cv2_imshow
 
 # Input : Image
 # Output : hor,ver 
@@ -10,7 +11,7 @@ def line_detection(image):
     bw = cv2.bitwise_not(bw)
     ## To visualize image after thresholding ##
     cv2.imshow("bw",bw)
-    cv2.waitKey(0)
+    cv2.imwrite("/content/api_uploads/images/bw.jpg", bw)
     ###########################################
     horizontal = bw.copy()
     vertical = bw.copy()
@@ -28,7 +29,7 @@ def line_detection(image):
 
     ## Uncomment to visualize highlighted Horizontal lines
     # cv2.imshow("horizontal",horizontal)
-    # cv2.waitKey(0)
+    # cv2.imwrite("/content/api_uploads/images/horizontal.jpg", horizontal)
 
     # HoughlinesP function to detect horizontal lines
     hor_lines = cv2.HoughLinesP(horizontal,rho=1,theta=np.pi/180,threshold=100,minLineLength=30,maxLineGap=3)
@@ -50,7 +51,7 @@ def line_detection(image):
     
     # print(image.shape)
     # cv2.imshow("image",image)
-    # cv2.waitKey(0)
+    # cv2.imwrite("/content/api_uploads/images/image.jpg", image)
     ####################################################################
 
     ## Selection of best lines from all the horizontal lines detected ##
@@ -89,7 +90,7 @@ def line_detection(image):
 
     ######## Preprocessing Vertical Lines ###############
     # cv2.imshow("vertical",vertical)
-    # cv2.waitKey(0)
+    # cv2.imwrite("/content/api_uploads/images/vertical.jpg", vertical)
     #####################################################
 
     # HoughlinesP function to detect vertical lines
@@ -113,7 +114,7 @@ def line_detection(image):
     
     # print(image.shape)
     # cv2.imshow("image",image)
-    # cv2.waitKey(0)
+    # cv2.imwrite("/content/api_uploads/images/image2.jpg", image)
     ####################################################################
 
     ## Selection of best lines from all the vertical lines detected ##
@@ -153,7 +154,7 @@ def line_detection(image):
     #     cv2.line(img, (x1,y1), (x2,y2), (0, 255, 0), 1)
     
     # cv2.imshow("image",img)
-    # cv2.waitKey(0)
+    # cv2.imwrite("/content/api_uploads/images/image3.jpg", image)
     #######################################################################
 
     return hor,ver

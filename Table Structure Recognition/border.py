@@ -2,7 +2,7 @@
 from Functions.borderFunc import extract_table,extractText,span
 import lxml.etree as etree
 import cv2
-
+from google.colab.patches import cv2_imshow
 # Input : table coordinates [x1,y1,x2,y2]
 # Output : XML Structure for ICDAR 19 single table
 def border(table,image):
@@ -46,10 +46,10 @@ def border(table,image):
             cell.set("start-col",str(start_col))
             cell.set("start-row",str(start_row))
 
-            one = str(cellBox[0]+box[0]-10)+","+str(cellBox[1]+box[1]-10)
-            two = str(cellBox[0]+box[0]-10)+","+str(cellBox[3]+box[1]-10)
-            three = str(cellBox[2]+box[0]-10)+","+str(cellBox[3]+box[1]-10)
-            four = str(cellBox[2]+box[0]-10)+","+str(cellBox[1]+box[1]-10)
+            one = str(cellBox[0]+box[0])+","+str(cellBox[1]+box[1])
+            two = str(cellBox[0]+box[0])+","+str(cellBox[3]+box[1])
+            three = str(cellBox[2]+box[0])+","+str(cellBox[3]+box[1])
+            four = str(cellBox[2]+box[0])+","+str(cellBox[1]+box[1])
 
             coords = etree.Element("Coords", points=one+" "+two+" "+three+" "+four)
 
@@ -57,7 +57,7 @@ def border(table,image):
             tableXML.append(cell)
     ## to visualize the detected text areas
     # cv2.imshow("detected cells",imag)
-    # cv2.waitKey(0)
+    cv2.imwrite("/content/api_uploads/images/detected_cells.jpg", imag)
     return tableXML
 
 # border([111,228,680,480],cv2.imread('cTDaR_t10039.jpg'))

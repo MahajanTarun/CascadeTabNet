@@ -1,6 +1,6 @@
 import cv2
 from Functions.line_detection import line_detection
-
+from google.colab.patches import cv2_imshow
 ##################  Functions required for Border table Recognition #################
 
 ## Return the intersection of lines only if intersection is present ##
@@ -52,7 +52,7 @@ def extract_table(table_body,__line__,lines=None):
             cv2.line(table,(x,y),(x,y),(0,0,255),8)
 
     cv2.imshow("intersection",table)
-    cv2.waitKey(0)
+    cv2.imwrite("/content/api_uploads/images/intersection.jpg", table)
 
     # boxno = -1
     box = []
@@ -116,7 +116,7 @@ def extract_table(table_body,__line__,lines=None):
     #     cv2.rectangle(table_body, (i[0], i[1]), (i[6], i[7]), (int(i[7]%255),0,int(i[0]%255)), 2)
     # #     count+=1
     # cv2.imshow("cells",table_body)
-    # cv2.waitKey(0)
+    # cv2.imwrite("/content/api_uploads/images/cells.jpg", table_body)
     ############################
     return box
 # extract_table(cv2.imread("E:\\KSK\\KSK ML\\KSK PAPERS\\TabXNet\\For Git\\images\\table.PNG"),1,lines=None)

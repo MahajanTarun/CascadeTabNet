@@ -1,6 +1,9 @@
 import numpy as np
 import cv2
 from Functions.borderFunc import extract_table
+from lxml import etree
+from google.colab.patches import cv2_imshow
+
 ## Input : roi of one cell
 ## Output : bounding box for the text in that cell
 def extractTextBless(img):
@@ -322,7 +325,7 @@ def borderless(table, image, res_cells):
         # print(tbox)
 
     cv2.imshow("text chunks", im2)
-    cv2.waitKey(0)
+    cv2.imwrite("/content/api_uploads/images/text_chunks.jpg", im2)
 
     def rowstart(val):
       r = 0
